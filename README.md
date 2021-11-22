@@ -9,3 +9,33 @@ module.exports = {
   plugins: ['@react-three/babel'],
 }
 ```
+
+#### In
+
+```jsx
+import { createRoot } from '@react-three/fiber'
+
+createRoot(canvasNode).render((
+  <mesh>
+    <boxGeometry />
+    <meshStandardMaterial />
+  </mesh>
+))
+```
+
+#### Out
+
+```jsx
+import { createRoot } from '@react-three/fiber'
+import { Mesh, BoxGeometry, MeshStandardMaterial } from "three"
+import { extend } from "@react-three/fiber"
+
+extend({ Mesh, BoxGeometry, MeshStandardMaterial })
+
+createRoot(canvasNode).render((
+  <mesh>
+    <boxGeometry />
+    <meshStandardMaterial />
+  </mesh>
+))
+```
