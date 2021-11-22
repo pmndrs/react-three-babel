@@ -26,9 +26,8 @@ createRoot(canvasNode).render((
 #### Out
 
 ```jsx
-import { createRoot } from '@react-three/fiber'
+import { createRoot, extend } from '@react-three/fiber'
 import { Mesh, BoxGeometry, MeshStandardMaterial } from "three"
-import { extend } from "@react-three/fiber"
 
 extend({ Mesh, BoxGeometry, MeshStandardMaterial })
 
