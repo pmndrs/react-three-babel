@@ -1,5 +1,7 @@
 # react-three-babel
 
+A babel plugin that automatically builds the extend catalogue of known native Threejs elements which enables granular usage of Threejs and therefore tree shaking.
+
 ```bash
 npm install @react-three/babel
 ```
