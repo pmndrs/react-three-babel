@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`works 1`] = `
+"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+import { extend } from \\"@react-three/fiber\\";
+extend({
+  Mesh: _Mesh,
+  BoxGeometry: _BoxGeometry,
+  MeshStandardMaterial: _MeshStandardMaterial
+})
+import { createRoot } from '@react-three/fiber';
+createRoot(canvasNode).render(<mesh>
+    <boxGeometry />
+    <meshStandardMaterial />
+  </mesh>);"
+`;
+
+exports[`works with drei 1`] = `
+"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+import { extend } from \\"@react-three/fiber\\";
+extend({
+  Mesh: _Mesh,
+  BoxGeometry: _BoxGeometry,
+  MeshStandardMaterial: _MeshStandardMaterial
+})
+import { createRoot } from '@react-three/fiber';
+import { Html } from 'drei';
+createRoot(canvasNode).render(<mesh>
+    <boxGeometry />
+    <meshStandardMaterial />
+    <Html>
+      <div>Hello World</div>
+    </Html>
+  </mesh>);"
+`;
+
+exports[`works with import shadowing 1`] = `
+"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+import { extend } from \\"@react-three/fiber\\";
+extend({
+  Mesh: _Mesh,
+  BoxGeometry: _BoxGeometry,
+  MeshStandardMaterial: _MeshStandardMaterial
+})
+import { createRoot } from '@react-three/fiber';
+import { BoxGeometry } from 'three';
+createRoot(canvasNode).render(<mesh>
+    <boxGeometry />
+    <meshStandardMaterial />
+  </mesh>);"
+`;
