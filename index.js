@@ -1,22 +1,25 @@
-const THREE = require("three");
-const jsxPlugin = require("babel-plugin-syntax-jsx");
-
 module.exports = function ({ types: t }) {
   const threeImports = new Set();
 
   return {
-    inherits: jsxPlugin,
+    inherits: require("babel-plugin-syntax-jsx"),
+    pre(state) {
+      this.THREE = require(state.opts.importSource ?? "three");
+    },
+    post() {
+      this.THREE = null;
+    },
     visitor: {
-      JSXIdentifier(path) {
+      JSXIdentifier(path, state) {
         const { name } = path.node;
         const pascalCaseName = name.charAt(0).toUpperCase() + name.slice(1);
-        const isThreeElement = pascalCaseName in THREE;
+        const isThreeElement = pascalCaseName in this.THREE;
         if (isThreeElement) {
           threeImports.add(pascalCaseName);
         }
       },
       Program: {
-        exit: (path) => {
+        exit: (path, state) => {
           const extendIdentifier = t.identifier("extend");
           const importIdentifiers = Array.from(threeImports).map((name) =>
             t.identifier(name)
@@ -52,7 +55,7 @@ module.exports = function ({ types: t }) {
           );
           const importDeclaration2 = t.importDeclaration(
             importSpecifiers,
-            t.stringLiteral("three")
+            t.stringLiteral(state.opts.importSource ?? "three")
           );
           path.node.body.unshift(importDeclaration2);
         },
