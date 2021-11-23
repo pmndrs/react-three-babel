@@ -36,7 +36,7 @@ import {
 } from 'three'
 
 extend({
-  Mesh: Mesh,
+  Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshStandardMaterial: _MeshStandardMaterial
 })
