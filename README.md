@@ -1,9 +1,9 @@
 # react-three-babel
 
-A babel plugin that automatically builds the extend catalogue of known native Threejs elements which enables granular usage of Threejs and therefore tree shaking.
+A Babel plugin that automatically builds the `extend` catalogue of known native Three.js elements which enables granular usage of Three.js and therefore tree shaking.
 
 ```bash
-npm install @react-three/babel
+npm install --save-dev @react-three/babel
 ```
 
 ```javascript babel.config.js
@@ -29,9 +29,17 @@ createRoot(canvasNode).render((
 
 ```jsx
 import { createRoot, extend } from '@react-three/fiber'
-import { Mesh, BoxGeometry, MeshStandardMaterial } from 'three'
+import {
+  Mesh as _Mesh, 
+  BoxGeometry as _BoxGeometry, 
+  MeshStandardMaterial as _MeshStandardMaterial
+} from 'three'
 
-extend({ Mesh, BoxGeometry, MeshStandardMaterial })
+extend({
+  Mesh: Mesh,
+  BoxGeometry: _BoxGeometry,
+  MeshStandardMaterial: _MeshStandardMaterial
+})
 
 createRoot(canvasNode).render((
   <mesh>
