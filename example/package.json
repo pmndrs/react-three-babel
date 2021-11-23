@@ -1,0 +1,20 @@
+{
+  "name": "example",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/fiber": "https://pkg.csb.dev/pmndrs/react-three-fiber/commit/acbcca9f/@react-three/fiber",
+    "react": "^18.0.0-beta-149b420f6-20211119",
+    "three": "^0.134.0"
+  },
+  "devDependencies": {
+    "@react-three/babel": "../",
+    "@vitejs/plugin-react": "^1.0.0",
+    "vite": "^2.6.4"
+  }
+}
