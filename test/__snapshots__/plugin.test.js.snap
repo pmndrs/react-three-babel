@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`allows customization of the import source 1`] = `
+"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshStandardMaterial as _MeshStandardMaterial } from \\"three-stdlib\\";
+import { extend } from \\"@react-three/fiber\\";
+extend({
+  Mesh: _Mesh,
+  BoxGeometry: _BoxGeometry,
+  MeshStandardMaterial: _MeshStandardMaterial
+})
+import { createRoot } from '@react-three/fiber';
+createRoot(canvasNode).render(<mesh>
+    <boxGeometry />
+    <meshStandardMaterial />
+  </mesh>);"
+`;
+
 exports[`works 1`] = `
 "import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
 import { extend } from \\"@react-three/fiber\\";

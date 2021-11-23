@@ -19,6 +19,7 @@
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "jest": "^27.3.1",
-    "three": "^0.134.0"
+    "three": "^0.134.0",
+    "three-stdlib": "^2.5.9"
   }
 }

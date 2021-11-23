@@ -62,3 +62,29 @@ it("works with import shadowing", () => {
   });
   expect(code).toMatchSnapshot();
 });
+
+const exampleWithThreeStdLib = `
+import { createRoot } from '@react-three/fiber'
+
+createRoot(canvasNode).render(
+  <mesh>
+    <boxGeometry />
+    <meshStandardMaterial />
+  </mesh>
+)
+`;
+
+it("allows customization of the import source", () => {
+  const { code } = babel.transform(exampleWithThreeStdLib, {
+    plugins: [
+      [
+        plugin,
+        {
+          importSource: "three-stdlib",
+        },
+      ],
+    ],
+    sourceType: "module",
+  });
+  expect(code).toMatchSnapshot();
+});
