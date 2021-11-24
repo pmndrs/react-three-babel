@@ -88,3 +88,22 @@ it("allows customization of the import source", () => {
   });
   expect(code).toMatchSnapshot();
 });
+
+const exampleWithExtend = `
+import { createRoot, extend } from '@react-three/fiber'
+
+createRoot(canvasNode).render(
+  <mesh>
+    <boxGeometry />
+    <meshStandardMaterial />
+  </mesh>
+)
+`;
+
+it("does not re-import extend if already imported", () => {
+  const { code } = babel.transform(exampleWithExtend, {
+    plugins: [plugin],
+    sourceType: "module",
+  });
+  expect(code).toMatchSnapshot();
+});

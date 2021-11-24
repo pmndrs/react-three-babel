@@ -15,6 +15,20 @@ createRoot(canvasNode).render(<mesh>
   </mesh>);"
 `;
 
+exports[`does not re-import extend if already imported 1`] = `
+"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+import { createRoot, extend } from '@react-three/fiber';
+extend({
+  Mesh: _Mesh,
+  BoxGeometry: _BoxGeometry,
+  MeshStandardMaterial: _MeshStandardMaterial
+})
+createRoot(canvasNode).render(<mesh>
+    <boxGeometry />
+    <meshStandardMaterial />
+  </mesh>);"
+`;
+
 exports[`works 1`] = `
 "import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
 import { extend } from \\"@react-three/fiber\\";

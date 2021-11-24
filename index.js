@@ -1,5 +1,6 @@
 module.exports = function ({ types: t }) {
   const threeImports = new Set();
+  let extendImport = null;
 
   return {
     inherits: require("babel-plugin-syntax-jsx"),
@@ -10,6 +11,17 @@ module.exports = function ({ types: t }) {
       this.THREE = null;
     },
     visitor: {
+      ImportDeclaration(path) {
+        if (
+          path.node.source.value === "@react-three/fiber" &&
+          path.node.specifiers.find(
+            (specifier) => specifier.imported.name === "extend"
+          ) &&
+          extendImport === null
+        ) {
+          extendImport = path;
+        }
+      },
       JSXIdentifier(path, state) {
         const { name } = path.node;
         const pascalCaseName = name.charAt(0).toUpperCase() + name.slice(1);
@@ -30,24 +42,35 @@ module.exports = function ({ types: t }) {
 
           // Add extend call
           const objectProperties = importIdentifiers.map((identifier, i) =>
-            t.objectProperty(identifier, underscoreImportIdentifiers[i], false, true)
+            t.objectProperty(
+              identifier,
+              underscoreImportIdentifiers[i],
+              false,
+              true
+            )
           );
           const objectExpression = t.objectExpression(objectProperties);
           const extendCall = t.callExpression(extendIdentifier, [
             objectExpression,
           ]);
-          path.node.body.unshift(extendCall);
+          if (extendImport) {
+            extendImport.insertAfter(extendCall);
+          } else {
+            path.node.body.unshift(extendCall);
+          }
 
           // Add extend import
-          const extendImportSpecifier = t.importSpecifier(
-            extendIdentifier,
-            extendIdentifier
-          );
-          const importDeclaration = t.importDeclaration(
-            [extendImportSpecifier],
-            t.stringLiteral("@react-three/fiber")
-          );
-          path.node.body.unshift(importDeclaration);
+          if (extendImport === null) {
+            const extendImportSpecifier = t.importSpecifier(
+              extendIdentifier,
+              extendIdentifier
+            );
+            const importDeclaration = t.importDeclaration(
+              [extendImportSpecifier],
+              t.stringLiteral("@react-three/fiber")
+            );
+            path.node.body.unshift(importDeclaration);
+          }
 
           // Add three imports
           const importSpecifiers = importIdentifiers.map((identifier, i) =>
