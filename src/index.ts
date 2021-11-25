@@ -1,7 +1,11 @@
-const { addNamed } = require('@babel/helper-module-imports')
+import { addNamed } from "@babel/helper-module-imports";
+import type * as BabelCoreNamespace from "@babel/core";
+import type { PluginObj } from "@babel/core";
 
-module.exports = function ({ types: t }) {
-  const threeImports = new Set();
+type Babel = typeof BabelCoreNamespace;
+
+export default function ({ types: t }: Babel): PluginObj {
+  const threeImports = new Set<string>();
 
   return {
     inherits: require("babel-plugin-syntax-jsx"),
@@ -12,10 +16,10 @@ module.exports = function ({ types: t }) {
       this.THREE = null;
     },
     visitor: {
-      JSXIdentifier(path, state) {
+      JSXIdentifier(path) {
         const { name } = path.node;
         const pascalCaseName = name.charAt(0).toUpperCase() + name.slice(1);
-        const isThreeElement = pascalCaseName in this.THREE;
+        const isThreeElement = pascalCaseName in (this.THREE as any);
         if (isThreeElement) {
           threeImports.add(pascalCaseName);
         }
@@ -27,27 +31,23 @@ module.exports = function ({ types: t }) {
 
           // Add three imports
           const threeImportsArray = Array.from(threeImports);
-          const threeNames = threeImportsArray.map((name, i) => 
+          const threeNames = threeImportsArray.map((name, i) =>
             addNamed(path, name, state.opts.importSource ?? "three")
           );
 
           // Add extend call
           const objectProperties = threeImportsArray.map((name, i) =>
-            t.objectProperty(
-              t.Identifier(name),
-              threeNames[i],
-              false,
-              true
-            )
+            t.objectProperty(t.identifier(name), threeNames[i], false, true)
           );
           const objectExpression = t.objectExpression(objectProperties);
-          const extendCall = t.callExpression(extendName, [
-            objectExpression,
-          ]);
-          const lastImport = path.get("body").filter(p => p.isImportDeclaration()).pop();
+          const extendCall = t.callExpression(extendName, [objectExpression]);
+          const lastImport = path
+            .get("body")
+            .filter((p) => p.isImportDeclaration())
+            .pop();
           if (lastImport) lastImport.insertAfter(extendCall);
         },
       },
     },
   };
-};
+}

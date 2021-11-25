@@ -2,12 +2,13 @@
   "name": "@react-three/babel",
   "version": "0.1.0",
   "description": "A Babel plugin that automatically builds the extend catalogue of known Three.js elements",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": "https://github.com/pmndrs/react-three-babel",
   "author": "Umar Ahmed (https://github.com/umar-ahmed)",
   "license": "MIT",
   "private": true,
   "scripts": {
+    "build": "yarn tsc",
     "test": "yarn jest"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
     "@babel/core": "^7.16.0",
     "jest": "^27.3.1",
     "three": "^0.134.0",
-    "three-stdlib": "^2.5.9"
+    "three-stdlib": "^2.5.9",
+    "typescript": "^4.5.2"
   }
 }
