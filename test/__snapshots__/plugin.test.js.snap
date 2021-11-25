@@ -1,28 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`allows customization of the import source 1`] = `
-"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshStandardMaterial as _MeshStandardMaterial } from \\"three-stdlib\\";
-import { extend } from \\"@react-three/fiber\\";
-extend({
+"import { MeshStandardMaterial as _MeshStandardMaterial } from \\"three-stdlib\\";
+import { BoxGeometry as _BoxGeometry } from \\"three-stdlib\\";
+import { Mesh as _Mesh } from \\"three-stdlib\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+import { createRoot } from '@react-three/fiber';
+
+_extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshStandardMaterial: _MeshStandardMaterial
 })
-import { createRoot } from '@react-three/fiber';
+
 createRoot(canvasNode).render(<mesh>
     <boxGeometry />
     <meshStandardMaterial />
   </mesh>);"
 `;
 
-exports[`does not re-import extend if already imported 1`] = `
-"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+exports[`does not break if extend is already imported 1`] = `
+"import { MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+import { BoxGeometry as _BoxGeometry } from \\"three\\";
+import { Mesh as _Mesh } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
 import { createRoot, extend } from '@react-three/fiber';
-extend({
+
+_extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshStandardMaterial: _MeshStandardMaterial
 })
+
 createRoot(canvasNode).render(<mesh>
     <boxGeometry />
     <meshStandardMaterial />
@@ -30,14 +39,18 @@ createRoot(canvasNode).render(<mesh>
 `;
 
 exports[`works 1`] = `
-"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
-import { extend } from \\"@react-three/fiber\\";
-extend({
+"import { MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+import { BoxGeometry as _BoxGeometry } from \\"three\\";
+import { Mesh as _Mesh } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+import { createRoot } from '@react-three/fiber';
+
+_extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshStandardMaterial: _MeshStandardMaterial
 })
-import { createRoot } from '@react-three/fiber';
+
 createRoot(canvasNode).render(<mesh>
     <boxGeometry />
     <meshStandardMaterial />
@@ -45,15 +58,19 @@ createRoot(canvasNode).render(<mesh>
 `;
 
 exports[`works with drei 1`] = `
-"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
-import { extend } from \\"@react-three/fiber\\";
-extend({
+"import { MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+import { BoxGeometry as _BoxGeometry } from \\"three\\";
+import { Mesh as _Mesh } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+import { createRoot } from '@react-three/fiber';
+import { Html } from 'drei';
+
+_extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshStandardMaterial: _MeshStandardMaterial
 })
-import { createRoot } from '@react-three/fiber';
-import { Html } from 'drei';
+
 createRoot(canvasNode).render(<mesh>
     <boxGeometry />
     <meshStandardMaterial />
@@ -64,15 +81,19 @@ createRoot(canvasNode).render(<mesh>
 `;
 
 exports[`works with import shadowing 1`] = `
-"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
-import { extend } from \\"@react-three/fiber\\";
-extend({
+"import { MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+import { BoxGeometry as _BoxGeometry } from \\"three\\";
+import { Mesh as _Mesh } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+import { createRoot } from '@react-three/fiber';
+import { BoxGeometry } from 'three';
+
+_extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshStandardMaterial: _MeshStandardMaterial
 })
-import { createRoot } from '@react-three/fiber';
-import { BoxGeometry } from 'three';
+
 createRoot(canvasNode).render(<mesh>
     <boxGeometry />
     <meshStandardMaterial />

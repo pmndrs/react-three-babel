@@ -1,3 +1,5 @@
+const { addNamed } = require('@babel/helper-module-imports')
+
 module.exports = function ({ types: t }) {
   const threeImports = new Set();
   let extendImport = null;
@@ -11,17 +13,6 @@ module.exports = function ({ types: t }) {
       this.THREE = null;
     },
     visitor: {
-      ImportDeclaration(path) {
-        if (
-          path.node.source.value === "@react-three/fiber" &&
-          path.node.specifiers.find(
-            (specifier) => specifier.imported.name === "extend"
-          ) &&
-          extendImport === null
-        ) {
-          extendImport = path;
-        }
-      },
       JSXIdentifier(path, state) {
         const { name } = path.node;
         const pascalCaseName = name.charAt(0).toUpperCase() + name.slice(1);
@@ -32,55 +23,30 @@ module.exports = function ({ types: t }) {
       },
       Program: {
         exit: (path, state) => {
-          const extendIdentifier = t.identifier("extend");
-          const importIdentifiers = Array.from(threeImports).map((name) =>
-            t.identifier(name)
-          );
-          const underscoreImportIdentifiers = Array.from(threeImports).map(
-            (name) => t.identifier("_" + name)
+          // Add extend import
+          const extendName = addNamed(path, "extend", "@react-three/fiber");
+
+          // Add three imports
+          const threeImportsArray = Array.from(threeImports);
+          const threeNames = threeImportsArray.map((name, i) => 
+            addNamed(path, name, state.opts.importSource ?? "three")
           );
 
           // Add extend call
-          const objectProperties = importIdentifiers.map((identifier, i) =>
+          const objectProperties = threeImportsArray.map((name, i) =>
             t.objectProperty(
-              identifier,
-              underscoreImportIdentifiers[i],
+              t.Identifier(name),
+              threeNames[i],
               false,
               true
             )
           );
           const objectExpression = t.objectExpression(objectProperties);
-          const extendCall = t.callExpression(extendIdentifier, [
+          const extendCall = t.callExpression(extendName, [
             objectExpression,
           ]);
-          if (extendImport) {
-            extendImport.insertAfter(extendCall);
-          } else {
-            path.node.body.unshift(extendCall);
-          }
-
-          // Add extend import
-          if (extendImport === null) {
-            const extendImportSpecifier = t.importSpecifier(
-              extendIdentifier,
-              extendIdentifier
-            );
-            const importDeclaration = t.importDeclaration(
-              [extendImportSpecifier],
-              t.stringLiteral("@react-three/fiber")
-            );
-            path.node.body.unshift(importDeclaration);
-          }
-
-          // Add three imports
-          const importSpecifiers = importIdentifiers.map((identifier, i) =>
-            t.importSpecifier(underscoreImportIdentifiers[i], identifier)
-          );
-          const importDeclaration2 = t.importDeclaration(
-            importSpecifiers,
-            t.stringLiteral(state.opts.importSource ?? "three")
-          );
-          path.node.body.unshift(importDeclaration2);
+          const lastImport = path.get("body").filter(p => p.isImportDeclaration()).pop();
+          if (lastImport) lastImport.insertAfter(extendCall);
         },
       },
     },

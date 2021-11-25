@@ -100,7 +100,7 @@ createRoot(canvasNode).render(
 )
 `;
 
-it("does not re-import extend if already imported", () => {
+it("does not break if extend is already imported", () => {
   const { code } = babel.transform(exampleWithExtend, {
     plugins: [plugin],
     sourceType: "module",
