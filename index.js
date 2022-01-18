@@ -2,7 +2,6 @@ const { addNamed } = require('@babel/helper-module-imports')
 
 module.exports = function ({ types: t }) {
   const threeImports = new Set();
-  let extendImport = null;
 
   return {
     inherits: require("babel-plugin-syntax-jsx"),
