@@ -1,16 +1,20 @@
 import { addNamed } from "@babel/helper-module-imports";
-import type * as BabelCoreNamespace from "@babel/core";
+import * as BabelCore from "@babel/core";
+import PluginSyntaxJSX from "@babel/plugin-syntax-jsx";
 import type { PluginObj } from "@babel/core";
 
-type Babel = typeof BabelCoreNamespace;
+type PluginOptions = BabelCore.TransformOptions & {
+  importSource?: string;
+};
 
-export default function ({ types: t }: Babel): PluginObj {
+export default function ({ types: t }: typeof BabelCore): PluginObj {
   const threeImports = new Set<string>();
 
   return {
-    inherits: require("babel-plugin-syntax-jsx"),
+    inherits: PluginSyntaxJSX,
     pre(state) {
-      this.THREE = require(state.opts.importSource ?? "three");
+      this.THREE = require((state?.opts as PluginOptions)?.importSource ??
+        "three");
     },
     post() {
       this.THREE = null;
@@ -32,7 +36,11 @@ export default function ({ types: t }: Babel): PluginObj {
           // Add three imports
           const threeImportsArray = Array.from(threeImports);
           const threeNames = threeImportsArray.map((name, i) =>
-            addNamed(path, name, state.opts.importSource ?? "three")
+            addNamed(
+              path,
+              name,
+              (state?.opts as PluginOptions)?.importSource ?? "three"
+            )
           );
 
           // Add extend call
@@ -41,11 +49,13 @@ export default function ({ types: t }: Babel): PluginObj {
           );
           const objectExpression = t.objectExpression(objectProperties);
           const extendCall = t.callExpression(extendName, [objectExpression]);
-          const lastImport = path
-            .get("body")
-            .filter((p) => p.isImportDeclaration())
-            .pop();
-          if (lastImport) lastImport.insertAfter(extendCall);
+          const body = path.get("body");
+          if (Array.isArray(body)) {
+            const lastImport = body
+              .filter((p) => p.isImportDeclaration())
+              .pop();
+            if (lastImport) lastImport.insertAfter(extendCall);
+          }
         },
       },
     },
