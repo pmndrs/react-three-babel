@@ -1,5 +1,5 @@
 {
-    "buildCommand": "yarn build",
+    "buildCommand": "build",
     "sandboxes": ["/example"],
     "node": "14"
 }
