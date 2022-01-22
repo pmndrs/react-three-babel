@@ -12,7 +12,8 @@
     "clean": "rimraf dist",
     "clean:modules": "rimraf node_modules && yarn install",
     "test": "yarn jest",
-    "test:watch": "yarn jest --watchAll"
+    "test:watch": "yarn jest --watchAll",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "@babel/helper-module-imports": "^7.16.0",
