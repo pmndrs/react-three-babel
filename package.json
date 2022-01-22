@@ -7,7 +7,6 @@
   "repository": "https://github.com/pmndrs/react-three-babel",
   "author": "Umar Ahmed (https://github.com/umar-ahmed)",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "build": "yarn tsc",
     "clean": "rimraf dist",
