@@ -1,8 +1,11 @@
 {
   "name": "@react-three/babel",
   "version": "0.1.0",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
   "description": "A Babel plugin that automatically builds the extend catalogue of known Three.js elements",
   "repository": "https://github.com/pmndrs/react-three-babel",
   "author": "Umar Ahmed (https://github.com/umar-ahmed)",
