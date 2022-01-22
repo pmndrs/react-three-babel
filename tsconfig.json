@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2016",
+    "moduleResolution": "node",
+    "types": ["node", "jest"],
+    "declaration": true,
+  },
+  "include": ["src", "@types"],
+}

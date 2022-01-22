@@ -1,5 +1,5 @@
-const babel = require("@babel/core");
-const plugin = require("..");
+import * as babel from "@babel/core";
+import plugin from "../src/index";
 
 const example = `
 import { createRoot } from '@react-three/fiber'
@@ -16,7 +16,7 @@ it("works", () => {
   const { code } = babel.transform(example, {
     plugins: [plugin],
     sourceType: "module",
-  });
+  })!;
   expect(code).toMatchSnapshot();
 });
 
@@ -39,7 +39,7 @@ it("works with drei", () => {
   const { code } = babel.transform(exampleWithDrei, {
     plugins: [plugin],
     sourceType: "module",
-  });
+  })!;
   expect(code).toMatchSnapshot();
 });
 
@@ -59,7 +59,7 @@ it("works with import shadowing", () => {
   const { code } = babel.transform(exampleWithImportShadowing, {
     plugins: [plugin],
     sourceType: "module",
-  });
+  })!;
   expect(code).toMatchSnapshot();
 });
 
@@ -85,7 +85,7 @@ it("allows customization of the import source", () => {
       ],
     ],
     sourceType: "module",
-  });
+  })!;
   expect(code).toMatchSnapshot();
 });
 
@@ -104,6 +104,6 @@ it("does not break if extend is already imported", () => {
   const { code } = babel.transform(exampleWithExtend, {
     plugins: [plugin],
     sourceType: "module",
-  });
+  })!;
   expect(code).toMatchSnapshot();
 });
