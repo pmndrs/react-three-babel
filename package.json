@@ -1,8 +1,9 @@
 {
   "name": "@react-three/babel",
   "version": "0.1.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
   "files": [
     "dist/"
   ],
@@ -11,7 +12,7 @@
   "author": "Umar Ahmed (https://github.com/umar-ahmed)",
   "license": "MIT",
   "scripts": {
-    "build": "yarn tsc",
+    "build": "yarn tsc -p tsconfig.esm.json && yarn tsc -p tsconfig.cjs.json",
     "clean": "rimraf dist",
     "clean:modules": "rimraf node_modules && yarn install",
     "test": "yarn jest",
