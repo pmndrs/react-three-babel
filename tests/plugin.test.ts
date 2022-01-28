@@ -67,20 +67,23 @@ const exampleWithThreeStdLib = `
 import { createRoot } from '@react-three/fiber'
 
 createRoot(canvasNode).render(
-  <mesh>
-    <boxGeometry />
-    <meshStandardMaterial />
-  </mesh>
+  <>
+    <orbitControls />
+    <mesh>
+      <boxGeometry />
+      <meshStandardMaterial />
+    </mesh>
+  </>
 )
 `;
 
-it("allows customization of the import source", () => {
+it("allows customization of the import sources", () => {
   const { code } = babel.transform(exampleWithThreeStdLib, {
     plugins: [
       [
         plugin,
         {
-          importSource: "three-stdlib",
+          importSources: ["three", "three-stdlib"],
         },
       ],
     ],
@@ -129,12 +132,12 @@ function Box(props) {
 }
 
 createRoot(canvasNode).render(<Box />);
-`
+`;
 
-it('works with animated from @react-spring/three', () => {
+it("works with animated from @react-spring/three", () => {
   const { code } = babel.transform(exampleWithReactSpring, {
     plugins: [plugin],
     sourceType: "module",
   })!;
   expect(code).toMatchSnapshot();
-})
+});
