@@ -1,51 +1,72 @@
 import { addNamed } from "@babel/helper-module-imports";
-import * as BabelCore from "@babel/core";
+import { declare } from "@babel/helper-plugin-utils";
+import { PluginObj, PluginPass } from "@babel/core";
 import PluginSyntaxJSX from "@babel/plugin-syntax-jsx";
-import type { PluginObj } from "@babel/core";
+import invariant from "tiny-invariant";
 
-type PluginOptions = BabelCore.TransformOptions & {
-  importSource?: string;
-};
+export default declare<
+  { importSources?: string[] },
+  PluginObj<PluginPass & { imports?: Set<`${string},${string}`> }>
+>(({ types: t }, { importSources = ["three"] }) => {
+  invariant(Array.isArray(importSources), "importSources must be an array");
 
-export default function ({ types: t }: typeof BabelCore): PluginObj {
-  const threeImports = new Set<string>();
+  const NS = importSources.map((id) => require(id));
 
   return {
     inherits: PluginSyntaxJSX,
-    pre(state) {
-      this.THREE = require((state?.opts as PluginOptions)?.importSource ??
-        "three");
+    pre() {
+      this.imports = new Set<`${string},${string}`>();
     },
     post() {
-      this.THREE = null;
+      this.imports?.clear();
     },
     visitor: {
-      JSXIdentifier(path) {
+      JSXOpeningElement(path) {
         const { name } = path.node;
-        const pascalCaseName = name.charAt(0).toUpperCase() + name.slice(1);
-        const isThreeElement = pascalCaseName in (this.THREE as any);
-        if (isThreeElement) {
-          threeImports.add(pascalCaseName);
+
+        if (t.isJSXIdentifier(name)) {
+          const elementName = name.name;
+          const pascalCaseName =
+            elementName.charAt(0).toUpperCase() + elementName.slice(1);
+          for (let i = 0; i < NS.length; i++) {
+            if (pascalCaseName in NS[i]) {
+              this.imports?.add(`${importSources[i]},${pascalCaseName}`);
+              break;
+            }
+          }
+        } else if (t.isJSXMemberExpression(name)) {
+          const propertyName = name.property.name;
+          const pascalCaseName =
+            propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
+          for (let i = 0; i < NS.length; i++) {
+            if (pascalCaseName in NS[i]) {
+              this.imports?.add(`${importSources[i]},${pascalCaseName}`);
+              break;
+            }
+          }
+        } else {
+          throw new Error("Unsupported JSX element name");
         }
       },
       Program: {
-        exit: (path, state) => {
+        exit(path) {
           // Add extend import
           const extendName = addNamed(path, "extend", "@react-three/fiber");
 
-          // Add three imports
-          const threeImportsArray = Array.from(threeImports);
-          const threeNames = threeImportsArray.map((name, i) =>
-            addNamed(
-              path,
-              name,
-              (state?.opts as PluginOptions)?.importSource ?? "three"
-            )
+          // Add imports
+          const importsArray: [string, string][] = Array.from(
+            this.imports!
+          ).map((s) => {
+            const [a, b] = s.split(",");
+            return [a, b];
+          });
+          const importNames = importsArray.map(([module, name], i) =>
+            addNamed(path, name, module)
           );
 
           // Add extend call
-          const objectProperties = threeImportsArray.map((name, i) =>
-            t.objectProperty(t.identifier(name), threeNames[i], false, true)
+          const objectProperties = importsArray.map(([_, name], i) =>
+            t.objectProperty(t.identifier(name), importNames[i], false, true)
           );
           const objectExpression = t.objectExpression(objectProperties);
           const extendCall = t.callExpression(extendName, [objectExpression]);
@@ -60,4 +81,4 @@ export default function ({ types: t }: typeof BabelCore): PluginObj {
       },
     },
   };
-}
+});

@@ -1,22 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`allows customization of the import source 1`] = `
-"import { MeshStandardMaterial as _MeshStandardMaterial } from \\"three-stdlib\\";
-import { BoxGeometry as _BoxGeometry } from \\"three-stdlib\\";
-import { Mesh as _Mesh } from \\"three-stdlib\\";
+exports[`allows customization of the import sources 1`] = `
+"import { MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+import { BoxGeometry as _BoxGeometry } from \\"three\\";
+import { Mesh as _Mesh } from \\"three\\";
+import { OrbitControls as _OrbitControls } from \\"three-stdlib\\";
 import { extend as _extend } from \\"@react-three/fiber\\";
 import { createRoot } from '@react-three/fiber';
 
 _extend({
+  OrbitControls: _OrbitControls,
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshStandardMaterial: _MeshStandardMaterial
 })
 
-createRoot(canvasNode).render(<mesh>
-    <boxGeometry />
-    <meshStandardMaterial />
-  </mesh>);"
+createRoot(canvasNode).render(<>
+    <orbitControls />
+    <mesh>
+      <boxGeometry />
+      <meshStandardMaterial />
+    </mesh>
+  </>);"
 `;
 
 exports[`does not break if extend is already imported 1`] = `
@@ -55,6 +60,37 @@ createRoot(canvasNode).render(<mesh>
     <boxGeometry />
     <meshStandardMaterial />
   </mesh>);"
+`;
+
+exports[`works with animated from @react-spring/three 1`] = `
+"import { MeshPhongMaterial as _MeshPhongMaterial } from \\"three\\";
+import { BoxGeometry as _BoxGeometry } from \\"three\\";
+import { Mesh as _Mesh } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+import { useState } from \\"react\\";
+import { createRoot } from \\"@react-three/fiber\\";
+import { useSpring, animated } from \\"@react-spring/three\\";
+
+_extend({
+  Mesh: _Mesh,
+  BoxGeometry: _BoxGeometry,
+  MeshPhongMaterial: _MeshPhongMaterial
+})
+
+function Box(props) {
+  const [active, setActive] = useState(false);
+  const {
+    scale
+  } = useSpring({
+    scale: active ? 1.5 : 1
+  });
+  return <animated.mesh scale={scale} onClick={() => setActive(!active)} {...props}>
+      <boxGeometry />
+      <meshPhongMaterial color=\\"royalblue\\" />
+    </animated.mesh>;
+}
+
+createRoot(canvasNode).render(<Box />);"
 `;
 
 exports[`works with drei 1`] = `

@@ -67,20 +67,23 @@ const exampleWithThreeStdLib = `
 import { createRoot } from '@react-three/fiber'
 
 createRoot(canvasNode).render(
-  <mesh>
-    <boxGeometry />
-    <meshStandardMaterial />
-  </mesh>
+  <>
+    <orbitControls />
+    <mesh>
+      <boxGeometry />
+      <meshStandardMaterial />
+    </mesh>
+  </>
 )
 `;
 
-it("allows customization of the import source", () => {
+it("allows customization of the import sources", () => {
   const { code } = babel.transform(exampleWithThreeStdLib, {
     plugins: [
       [
         plugin,
         {
-          importSource: "three-stdlib",
+          importSources: ["three", "three-stdlib"],
         },
       ],
     ],
@@ -102,6 +105,37 @@ createRoot(canvasNode).render(
 
 it("does not break if extend is already imported", () => {
   const { code } = babel.transform(exampleWithExtend, {
+    plugins: [plugin],
+    sourceType: "module",
+  })!;
+  expect(code).toMatchSnapshot();
+});
+
+const exampleWithReactSpring = `
+import { useState } from "react";
+import { createRoot } from "@react-three/fiber";
+import { useSpring, animated } from "@react-spring/three";
+
+function Box(props) {
+  const [active, setActive] = useState(false);
+  const { scale } = useSpring({ scale: active ? 1.5 : 1 });
+  return (
+    <animated.mesh
+      scale={scale}
+      onClick={() => setActive(!active)}
+      {...props}
+    >
+      <boxGeometry />
+      <meshPhongMaterial color="royalblue" />
+    </animated.mesh>
+  );
+}
+
+createRoot(canvasNode).render(<Box />);
+`;
+
+it("works with animated from @react-spring/three", () => {
+  const { code } = babel.transform(exampleWithReactSpring, {
     plugins: [plugin],
     sourceType: "module",
   })!;
