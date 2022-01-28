@@ -5,7 +5,7 @@ A Babel plugin that automatically builds the `extend` catalogue of known native 
 - [Install](#install)
 - [Usage](#usage)
   - [Default](#default)
-  - [Custom import source](#custom-import-source)
+  - [Custom import sources](#custom-import-sources)
 - [How it Works](#how-it-works)
 - [Limitations](#limitations)
 
@@ -98,7 +98,7 @@ createRoot(canvasNode).render(<orbitControls />);
 
 The plugin starts by looking at all the JSX elements that you include in your source 
 code files (ex. `<h1/>`, `<p/>`, `<ambientLight/>`, etc.). If any of them match an import
-from the `three` namespace (or `importSource`, as shown in example above), then it is
+from the `three` namespace (or `importSources`, as shown in example above), then it is
 added to a set.
 
 Once all the JSX elements in a file are examined, the plugin adds the following imports to that file:
