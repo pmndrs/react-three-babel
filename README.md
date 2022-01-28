@@ -110,6 +110,14 @@ Finally, it adds a call to `extend` with the named imports.
 
 ## Limitations
 
-This plugin relies on static analysis of JSX identifiers, which means that **if you wrap any elements or generate elements dynamically (ex. using `as` prop in some libraries), they will not be picked up by this plugin**. 
+This plugin relies on static analysis of JSX identifiers, which means that **if you wrap any elements or generate elements dynamically, they will not be picked up by this plugin**. 
 
-At the moment, this means that `animated` elements from `@react-spring/three`, like `<animated.mesh />`, will not be picked up by this plugin and you will have to manually call `extend` with the matching export from `three`.
+However, the `animated` elements from `@react-spring/three`, like `<animated.mesh />`, WILL be picked up by this plugin. 
+
+But something like this will not:
+
+```jsx
+const StyledMesh = styled('mesh')
+
+<StyledMesh />
+```
