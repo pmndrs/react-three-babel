@@ -62,14 +62,14 @@ createRoot(canvasNode).render(
 );
 ```
 
-### Custom import source
+### Custom import sources
 
 ```javascript babel.config.js
 module.exports = {
   plugins: [
     "module:@react-three/babel",
     {
-      importSource: "three-stdlib", // default: three
+      importSources: ["three", "three-stdlib"] // default: ["three"]
     },
   ],
 };
@@ -80,18 +80,18 @@ module.exports = {
 ```jsx
 import { createRoot } from "@react-three/fiber";
 
-createRoot(canvasNode).render(<mesh />);
+createRoot(canvasNode).render(<orbitControls />);
 ```
 
 **Out**
 
 ```jsx
 import { createRoot, extend } from "@react-three/fiber";
-import { Mesh as _Mesh } from "three-stdlib";
+import { OrbitControls as _OrbitControls } from "three-stdlib";
 
-extend({ Mesh: _Mesh });
+extend({ OrbitControls: _OrbitControls });
 
-createRoot(canvasNode).render(<mesh />);
+createRoot(canvasNode).render(<orbitControls />);
 ```
 
 ## How it Works
