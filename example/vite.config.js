@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     react({
       babel: {
-        plugins: ["module:@react-three/babel"],
+        plugins: ["@react-three"],
       },
     }),
   ],

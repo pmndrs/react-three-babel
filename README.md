@@ -5,7 +5,7 @@ A Babel plugin that automatically builds the `extend` catalogue of known native 
 ## Install
 
 ```bash
-npm install --save-dev @react-three/babel
+npm install --save-dev @react-three/babel-plugin
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ npm install --save-dev @react-three/babel
 
 ```javascript babel.config.js
 module.exports = {
-  plugins: ["@react-three/babel"],
+  plugins: ["@react-three"],
 };
 ```
 
@@ -60,7 +60,7 @@ createRoot(canvasNode).render(
 ```javascript babel.config.js
 module.exports = {
   plugins: [
-    "@react-three/babel",
+    "@react-three",
     {
       importSource: "three-stdlib", // default: three
     },

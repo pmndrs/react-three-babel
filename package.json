@@ -1,5 +1,5 @@
 {
-  "name": "@react-three/babel",
+  "name": "@react-three/babel-plugin",
   "version": "0.1.0",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",

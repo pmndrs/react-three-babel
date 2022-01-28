@@ -11,7 +11,7 @@
     "@react-three/fiber": "https://pkg.csb.dev/pmndrs/react-three-fiber/commit/acbcca9f/@react-three/fiber",
     "react": "^18.0.0-beta-149b420f6-20211119",
     "three": "^0.134.0",
-    "@react-three/babel": "../"
+    "@react-three/babel-plugin": "../"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^1.0.0",
