@@ -63,8 +63,7 @@ createRoot(canvasNode).render(<mesh>
 `;
 
 exports[`works with animated from @react-spring/three 1`] = `
-"import { Color as _Color } from \\"three\\";
-import { MeshPhongMaterial as _MeshPhongMaterial } from \\"three\\";
+"import { MeshPhongMaterial as _MeshPhongMaterial } from \\"three\\";
 import { BoxGeometry as _BoxGeometry } from \\"three\\";
 import { Mesh as _Mesh } from \\"three\\";
 import { extend as _extend } from \\"@react-three/fiber\\";
@@ -75,8 +74,7 @@ import { useSpring, animated } from \\"@react-spring/three\\";
 _extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
-  MeshPhongMaterial: _MeshPhongMaterial,
-  Color: _Color
+  MeshPhongMaterial: _MeshPhongMaterial
 })
 
 function Box(props) {

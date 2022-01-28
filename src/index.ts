@@ -21,14 +21,31 @@ export default declare<
       this.imports?.clear();
     },
     visitor: {
-      JSXIdentifier(path) {
+      JSXOpeningElement(path) {
         const { name } = path.node;
-        const pascalCaseName = name.charAt(0).toUpperCase() + name.slice(1);
-        for (let i = 0; i < NS.length; i++) {
-          if (pascalCaseName in NS[i]) {
-            this.imports?.add(`${importSources[i]},${pascalCaseName}`);
-            break;
+
+        if (t.isJSXIdentifier(name)) {
+          const elementName = name.name;
+          const pascalCaseName =
+            elementName.charAt(0).toUpperCase() + elementName.slice(1);
+          for (let i = 0; i < NS.length; i++) {
+            if (pascalCaseName in NS[i]) {
+              this.imports?.add(`${importSources[i]},${pascalCaseName}`);
+              break;
+            }
           }
+        } else if (t.isJSXMemberExpression(name)) {
+          const propertyName = name.property.name;
+          const pascalCaseName =
+            propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
+          for (let i = 0; i < NS.length; i++) {
+            if (pascalCaseName in NS[i]) {
+              this.imports?.add(`${importSources[i]},${pascalCaseName}`);
+              break;
+            }
+          }
+        } else {
+          throw new Error("Unsupported JSX element name");
         }
       },
       Program: {
