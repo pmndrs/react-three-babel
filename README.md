@@ -14,7 +14,7 @@ npm install --save-dev @react-three/babel
 
 ```javascript babel.config.js
 module.exports = {
-  plugins: ["@react-three/babel"],
+  plugins: ["module:@react-three/babel"],
 };
 ```
 
@@ -60,7 +60,7 @@ createRoot(canvasNode).render(
 ```javascript babel.config.js
 module.exports = {
   plugins: [
-    "@react-three/babel",
+    "module:@react-three/babel",
     {
       importSource: "three-stdlib", // default: three
     },
