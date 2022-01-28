@@ -8,16 +8,16 @@ type PluginOptions = BabelCore.TransformOptions & {
 };
 
 export default function ({ types: t }: typeof BabelCore): PluginObj {
-  const threeImports = new Set<string>();
-
   return {
     inherits: PluginSyntaxJSX,
     pre(state) {
       this.THREE = require((state?.opts as PluginOptions)?.importSource ??
         "three");
+      (this.threeImports as Set<string>) = new Set<string>();
     },
     post() {
       this.THREE = null;
+      (this.threeImports as Set<string>).clear();
     },
     visitor: {
       JSXIdentifier(path) {
@@ -25,16 +25,18 @@ export default function ({ types: t }: typeof BabelCore): PluginObj {
         const pascalCaseName = name.charAt(0).toUpperCase() + name.slice(1);
         const isThreeElement = pascalCaseName in (this.THREE as any);
         if (isThreeElement) {
-          threeImports.add(pascalCaseName);
+          (this.threeImports as Set<string>).add(pascalCaseName);
         }
       },
       Program: {
-        exit: (path, state) => {
+        exit(path, state) {
           // Add extend import
           const extendName = addNamed(path, "extend", "@react-three/fiber");
 
           // Add three imports
-          const threeImportsArray = Array.from(threeImports);
+          const threeImportsArray: string[] = Array.from(
+            this.threeImports as Set<string>
+          );
           const threeNames = threeImportsArray.map((name, i) =>
             addNamed(
               path,
