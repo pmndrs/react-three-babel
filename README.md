@@ -67,10 +67,12 @@ createRoot(canvasNode).render(
 ```javascript babel.config.js
 module.exports = {
   plugins: [
-    "module:@react-three/babel",
-    {
-      importSources: ["three", "three-stdlib"] // default: ["three"]
-    },
+    [
+      "module:@react-three/babel",
+      {
+        importSources: ["three", "three-stdlib"], // default: ["three"]
+      },
+    ],
   ],
 };
 ```
@@ -96,7 +98,7 @@ createRoot(canvasNode).render(<orbitControls />);
 
 ## How it Works
 
-The plugin starts by looking at all the JSX elements that you include in your source 
+The plugin starts by looking at all the JSX elements that you include in your source
 code files (ex. `<h1/>`, `<p/>`, `<ambientLight/>`, etc.). If any of them match an import
 from the `three` namespace (or `importSources`, as shown in example above), then it is
 added to a set.
@@ -105,14 +107,14 @@ Once all the JSX elements in a file are examined, the plugin adds the following 
 
 - Import `extend` function from `@react-three/fiber`
 - For each name in the set, a named import from the `three` namespace (ex. `import { Mesh } from 'three'`)
-  
+
 Finally, it adds a call to `extend` with the named imports.
 
 ## Limitations
 
-This plugin relies on static analysis of JSX identifiers, which means that **if you wrap any elements or generate elements dynamically, they will not be picked up by this plugin**. 
+This plugin relies on static analysis of JSX identifiers, which means that **if you wrap any elements or generate elements dynamically, they will not be picked up by this plugin**.
 
-However, the `animated` elements from `@react-spring/three`, like `<animated.mesh />`, WILL be picked up by this plugin. 
+However, the `animated` elements from `@react-spring/three`, like `<animated.mesh />`, WILL be picked up by this plugin.
 
 But something like this will not:
 
