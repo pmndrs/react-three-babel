@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "@react-three/babel": "link:../",
-    "@react-three/drei": "^9.0.0-beta.1",
     "@react-three/fiber": "^8.0.0-beta-04",
     "react": "^18.0.0-rc.0",
-    "three": "^0.137.5"
+    "three": "^0.137.5",
+    "three-stdlib": "^2.8.3"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^1.0.0",
