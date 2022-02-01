@@ -7,6 +7,13 @@
   "files": [
     "dist/"
   ],
+  "keywords": [
+    "react",
+    "babel",
+    "threejs",
+    "transform",
+    "plugin"
+  ],
   "description": "A Babel plugin that automatically builds the extend catalogue of known Three.js elements",
   "repository": "https://github.com/pmndrs/react-three-babel",
   "author": "Umar Ahmed (https://github.com/umar-ahmed)",
