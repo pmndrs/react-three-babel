@@ -1,5 +1,7 @@
 # react-three-babel
 
+[![Version](https://img.shields.io/npm/v/@react-three/babel?style=flat&colorA=000000&colorB=000000)](https://www.npmjs.com/package/@react-three/babel)
+
 A Babel plugin that automatically builds the `extend` catalogue of known native Three.js elements which enables granular usage of Three.js and therefore tree shaking.
 
 - [Install](#install)
