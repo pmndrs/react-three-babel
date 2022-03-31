@@ -2,13 +2,13 @@ import { addNamed } from "@babel/helper-module-imports";
 import { declare } from "@babel/helper-plugin-utils";
 import { PluginObj, PluginPass } from "@babel/core";
 import PluginSyntaxJSX from "@babel/plugin-syntax-jsx";
-import invariant from "tiny-invariant";
+import assert from "assert";
 
 export default declare<
   { importSources?: string[] },
   PluginObj<PluginPass & { imports?: Set<`${string},${string}`> }>
 >(({ types: t }, { importSources = ["three"] }) => {
-  invariant(Array.isArray(importSources), "importSources must be an array");
+  assert(Array.isArray(importSources), "importSources must be an array");
 
   const NS = importSources.map((id) => require(id));
 
