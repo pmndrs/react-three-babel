@@ -2,7 +2,9 @@
 
 [![Version](https://img.shields.io/npm/v/@react-three/babel?style=flat&colorA=000000&colorB=000000)](https://www.npmjs.com/package/@react-three/babel)
 
-A Babel plugin that automatically builds the `extend` catalogue of known native Three.js elements which enables granular usage of Three.js and therefore tree shaking.
+A Babel plugin that automatically builds the `extend` catalogue of known native Three.js elements which enables granular usage of Three.js and therefore tree shaking. 
+
+It is meant to be used with the new [`createRoot` API](https://docs.pmnd.rs/react-three-fiber/api/canvas#custom-canvas) added in v8 of `@react-three/fiber`, and **will NOT reduce bundle size if using the `Canvas` component ([Read more below](#limitations))!**
 
 - [Install](#install)
 - [Usage](#usage)
@@ -113,6 +115,8 @@ Once all the JSX elements in a file are examined, the plugin adds the following 
 Finally, it adds a call to `extend` with the named imports.
 
 ## Limitations
+
+This plugin will currently only help reduce the bundle size of your application when using the [`createRoot` API](https://docs.pmnd.rs/react-three-fiber/api/canvas#custom-canvas) added in v8 of `@react-three/fiber`. If you are using the `<Canvas />` component instead, using this Babel plugin will not help reduce bundle size because the `<Canvas />` component automatically extends the entire Three.js component catalogue [here in the code](https://github.com/pmndrs/react-three-fiber/blob/f3d92751d1c22533f10879eb7fd6bb075c674c46/packages/fiber/src/web/Canvas.tsx#L65-L68).
 
 This plugin relies on static analysis of JSX identifiers, which means that **if you wrap any elements or generate elements dynamically, they will not be picked up by this plugin**.
 
