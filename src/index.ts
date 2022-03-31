@@ -1,6 +1,6 @@
+import type { PluginObj, PluginPass } from "@babel/core";
 import { addNamed } from "@babel/helper-module-imports";
 import { declare } from "@babel/helper-plugin-utils";
-import { PluginObj, PluginPass } from "@babel/core";
 import PluginSyntaxJSX from "@babel/plugin-syntax-jsx";
 import assert from "assert";
 
