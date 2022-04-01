@@ -35,8 +35,8 @@
     "@babel/plugin-syntax-jsx": "^7.16.7"
   },
   "peerDependencies": {
-    "three": ">=0.126",
-    "@babel/core": ">=7.0.0"
+    "@babel/core": ">=7.0.0",
+    "three": ">=0.126"
   },
   "devDependencies": {
     "@babel/core": "^7.16.12",
