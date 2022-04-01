@@ -118,7 +118,7 @@ Finally, it adds a call to `extend` with the named imports.
 
 This plugin will currently only help reduce the bundle size of your application when using the [`createRoot` API](https://docs.pmnd.rs/react-three-fiber/api/canvas#custom-canvas) added in v8 of `@react-three/fiber`. If you are using the `<Canvas />` component instead, using this Babel plugin will not help reduce bundle size because the `<Canvas />` component automatically extends the entire Three.js component catalogue [here in the code](https://github.com/pmndrs/react-three-fiber/blob/f3d92751d1c22533f10879eb7fd6bb075c674c46/packages/fiber/src/web/Canvas.tsx#L65-L68).
 
-This plugin doesn't do anything special when it comes to making your bundle size smaller. It will help reduce the size compared to extending the entire Three.js component catalogue (ex. using `extend(THREE)`). However, don't expect to get huge bundle size savings as there are some parts of Three.js that are not fully tree-shakable at the time of writing.
+This plugin doesn't do anything special when it comes to making your bundle size smaller. It will help reduce the size compared to extending the entire Three.js component catalogue (ex. using `extend(THREE)`). However, don't expect to get huge bundle size savings as there are some parts of Three.js that are not fully tree-shakable at the time of writing. With that said, you may find [this bundler plugin](https://github.com/yushijinhun/three-minifier) helpful in reducing Three.js' contribution to your bundle size further.
 
 This plugin relies on static analysis of JSX identifiers, which means that **if you wrap any elements or generate elements dynamically, they will not be picked up by this plugin**.
 
