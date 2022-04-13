@@ -69,7 +69,7 @@ export default declare<
             t.objectProperty(t.identifier(name), importNames[i], false, true)
           );
           const objectExpression = t.objectExpression(objectProperties);
-          const extendCall = t.callExpression(extendName, [objectExpression]);
+          const extendCall = t.expressionStatement(t.callExpression(extendName, [objectExpression]));
           const body = path.get("body");
           if (Array.isArray(body)) {
             const lastImport = body

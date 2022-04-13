@@ -13,7 +13,7 @@ _extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshStandardMaterial: _MeshStandardMaterial
-})
+});
 
 createRoot(canvasNode).render(<>
     <orbitControls />
@@ -35,7 +35,7 @@ _extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshStandardMaterial: _MeshStandardMaterial
-})
+});
 
 createRoot(canvasNode).render(<mesh>
     <boxGeometry />
@@ -54,7 +54,7 @@ _extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshStandardMaterial: _MeshStandardMaterial
-})
+});
 
 createRoot(canvasNode).render(<mesh>
     <boxGeometry />
@@ -75,7 +75,7 @@ _extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshPhongMaterial: _MeshPhongMaterial
-})
+});
 
 function Box(props) {
   const [active, setActive] = useState(false);
@@ -105,7 +105,7 @@ _extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshStandardMaterial: _MeshStandardMaterial
-})
+});
 
 createRoot(canvasNode).render(<mesh>
     <boxGeometry />
@@ -128,7 +128,7 @@ _extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
   MeshStandardMaterial: _MeshStandardMaterial
-})
+});
 
 createRoot(canvasNode).render(<mesh>
     <boxGeometry />
