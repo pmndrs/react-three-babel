@@ -1,0 +1,44 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`works 1`] = `
+"import { animated } from \\"@react-spring/three\\";
+import { createRoot } from \\"@react-three/fiber\\";
+import { InstancedMesh as _InstancedMesh, BoxGeometry as _BoxGeometry, MeshBasicMaterial as _MeshBasicMaterial, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+/*@__PURE__*/
+_extend({
+  InstancedMesh: _InstancedMesh,
+  BoxGeometry: _BoxGeometry,
+  MeshBasicMaterial: _MeshBasicMaterial,
+  MeshStandardMaterial: _MeshStandardMaterial
+});
+function Box(props) {
+  const Comp = props.foo ? 'meshBasicMaterial' : 'meshStandardMaterial';
+  return <animated.instancedMesh {...props}> <boxGeometry /> <Comp color=\\"royalblue\\" /> </animated.instancedMesh>;
+}
+createRoot(canvasNode).render(<Box />);"
+`;
+
+exports[`works 2`] = `
+"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshBasicMaterial as _MeshBasicMaterial, MeshDepthMaterial as _MeshDepthMaterial, MeshDistanceMaterial as _MeshDistanceMaterial, MeshLambertMaterial as _MeshLambertMaterial, MeshMatcapMaterial as _MeshMatcapMaterial, MeshNormalMaterial as _MeshNormalMaterial, MeshPhongMaterial as _MeshPhongMaterial, MeshPhysicalMaterial as _MeshPhysicalMaterial, MeshStandardMaterial as _MeshStandardMaterial, MeshToonMaterial as _MeshToonMaterial } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+/*@__PURE__*/
+_extend({
+  Mesh: _Mesh,
+  BoxGeometry: _BoxGeometry,
+  MeshBasicMaterial: _MeshBasicMaterial,
+  MeshDepthMaterial: _MeshDepthMaterial,
+  MeshDistanceMaterial: _MeshDistanceMaterial,
+  MeshLambertMaterial: _MeshLambertMaterial,
+  MeshMatcapMaterial: _MeshMatcapMaterial,
+  MeshNormalMaterial: _MeshNormalMaterial,
+  MeshPhongMaterial: _MeshPhongMaterial,
+  MeshPhysicalMaterial: _MeshPhysicalMaterial,
+  MeshStandardMaterial: _MeshStandardMaterial,
+  MeshToonMaterial: _MeshToonMaterial
+});
+function Box(props) {
+  const Comp = \`mesh\${props.type}Material\`;
+  return <mesh {...props}> <boxGeometry /> <Comp color=\\"royalblue\\" /> </mesh>;
+}"
+`;

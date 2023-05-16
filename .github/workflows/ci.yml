@@ -1,29 +1,25 @@
 name: CI
-
 on:
   push:
-    branches: [ main ]
-  pull_request: {}
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  build:
-
+  build-lint-test:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-    - name: Install dependencies
-      run: yarn install --frozen-lockfile
-    - name: Build package
-      run: yarn build
-    - name: Run tests
-      run: yarn test
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Check build health
+        run: yarn build
+
+      - name: Check for regressions
+        run: yarn lint
+
+      - name: Run tests
+        run: yarn test
