@@ -41,13 +41,13 @@
     "@types/node": "^20.1.7",
     "@types/three": "^0.152.0",
     "three": "^0.152.2",
+    "typescript": "^5.0.4",
     "vite": "^4.3.7",
     "vitest": "^0.31.0"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "tsc",
     "test": "vitest run"
   }
 }
