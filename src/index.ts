@@ -54,6 +54,17 @@ export default {
     lastImport = null
   },
   visitor: {
+    CallExpression(path) {
+      // Remove extend(THREE) from Canvas and user-land
+      if (
+        t.isIdentifier(path.node.callee) &&
+        path.node.callee.name === 'extend' &&
+        t.isIdentifier(path.node.arguments[0]) &&
+        path.node.arguments[0].name === 'THREE'
+      ) {
+        path.remove()
+      }
+    },
     ImportDeclaration(importPath) {
       lastImport = importPath
     },

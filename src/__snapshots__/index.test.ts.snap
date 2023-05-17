@@ -1,31 +1,54 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`works 1`] = `
-"import { animated } from \\"@react-spring/three\\";
-import { createRoot } from \\"@react-three/fiber\\";
-import { InstancedMesh as _InstancedMesh, BoxGeometry as _BoxGeometry, MeshBasicMaterial as _MeshBasicMaterial, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
-import { extend as _extend } from \\"@react-three/fiber\\";
-/*@__PURE__*/
-_extend({
-  InstancedMesh: _InstancedMesh,
-  BoxGeometry: _BoxGeometry,
-  MeshBasicMaterial: _MeshBasicMaterial,
-  MeshStandardMaterial: _MeshStandardMaterial
-});
-function Box(props) {
-  const Comp = props.foo ? 'meshBasicMaterial' : 'meshStandardMaterial';
-  return <animated.instancedMesh {...props}> <boxGeometry /> <Comp color=\\"royalblue\\" /> </animated.instancedMesh>;
-}
-createRoot(canvasNode).render(<Box />);"
-`;
-
-exports[`works 2`] = `
-"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshBasicMaterial as _MeshBasicMaterial, MeshDepthMaterial as _MeshDepthMaterial, MeshDistanceMaterial as _MeshDistanceMaterial, MeshLambertMaterial as _MeshLambertMaterial, MeshMatcapMaterial as _MeshMatcapMaterial, MeshNormalMaterial as _MeshNormalMaterial, MeshPhongMaterial as _MeshPhongMaterial, MeshPhysicalMaterial as _MeshPhysicalMaterial, MeshStandardMaterial as _MeshStandardMaterial, MeshToonMaterial as _MeshToonMaterial } from \\"three\\";
+exports[`handles JSX 1`] = `
+"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshBasicMaterial as _MeshBasicMaterial } from \\"three\\";
 import { extend as _extend } from \\"@react-three/fiber\\";
 /*@__PURE__*/
 _extend({
   Mesh: _Mesh,
   BoxGeometry: _BoxGeometry,
+  MeshBasicMaterial: _MeshBasicMaterial
+});
+function Box(props) {
+  return <mesh {...props}> <boxGeometry /> <meshBasicMaterial /> </mesh>;
+}"
+`;
+
+exports[`handles JSX member expressions 1`] = `
+"import { animated } from \\"@react-spring/three\\";
+import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshBasicMaterial as _MeshBasicMaterial } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+/*@__PURE__*/
+_extend({
+  Mesh: _Mesh,
+  BoxGeometry: _BoxGeometry,
+  MeshBasicMaterial: _MeshBasicMaterial
+});
+function Box(props) {
+  return <animated.mesh {...props}> <boxGeometry /> <meshBasicMaterial /> </animated.mesh>;
+}"
+`;
+
+exports[`handles dynamic expressions 1`] = `
+"import { animated } from \\"@react-spring/three\\";
+import { MeshBasicMaterial as _MeshBasicMaterial, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+/*@__PURE__*/
+_extend({
+  MeshBasicMaterial: _MeshBasicMaterial,
+  MeshStandardMaterial: _MeshStandardMaterial
+});
+function Material(props) {
+  const Comp = props.foo ? 'meshBasicMaterial' : 'meshStandardMaterial';
+  return <Comp color=\\"royalblue\\" />;
+}"
+`;
+
+exports[`handles template strings 1`] = `
+"import { MeshBasicMaterial as _MeshBasicMaterial, MeshDepthMaterial as _MeshDepthMaterial, MeshDistanceMaterial as _MeshDistanceMaterial, MeshLambertMaterial as _MeshLambertMaterial, MeshMatcapMaterial as _MeshMatcapMaterial, MeshNormalMaterial as _MeshNormalMaterial, MeshPhongMaterial as _MeshPhongMaterial, MeshPhysicalMaterial as _MeshPhysicalMaterial, MeshStandardMaterial as _MeshStandardMaterial, MeshToonMaterial as _MeshToonMaterial } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+/*@__PURE__*/
+_extend({
   MeshBasicMaterial: _MeshBasicMaterial,
   MeshDepthMaterial: _MeshDepthMaterial,
   MeshDistanceMaterial: _MeshDistanceMaterial,
@@ -37,8 +60,13 @@ _extend({
   MeshStandardMaterial: _MeshStandardMaterial,
   MeshToonMaterial: _MeshToonMaterial
 });
-function Box(props) {
+function Material(props) {
   const Comp = \`mesh\${props.type}Material\`;
-  return <mesh {...props}> <boxGeometry /> <Comp color=\\"royalblue\\" /> </mesh>;
+  return <Comp color=\\"royalblue\\" />;
 }"
+`;
+
+exports[`removes namespaced extend calls 1`] = `
+"import * as THREE from \\"three\\";
+import { extend } from \\"@react-three/fiber\\";"
 `;
