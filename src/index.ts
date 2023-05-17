@@ -106,6 +106,9 @@ export default {
     },
     Program: {
       exit(path) {
+        // Only mutate JSX
+        if (!imports.size) return
+
         // Flatten three.js imports
         const THREEImports = t.importDeclaration([...imports.values()], t.stringLiteral('three'))
 
