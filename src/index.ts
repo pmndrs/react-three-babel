@@ -135,9 +135,6 @@ export default {
           ]),
         )
 
-        // Tree-shake top-level extend in libraries
-        t.addComment(extendCall, 'leading', '@__PURE__')
-
         // Flatten R3F imports
         const R3FExports = t.importDeclaration([extendImport], t.stringLiteral('@react-three/fiber'))
 
