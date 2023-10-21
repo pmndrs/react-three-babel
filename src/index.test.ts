@@ -55,8 +55,6 @@ it('handles JSX member expressions', () => {
 it('handles dynamic expressions', () => {
   const code = transform(
     `
-      import { animated } from "@react-spring/three";
-
       function Material(props) {
         const Comp = props.foo ? 'meshBasicMaterial' : 'meshStandardMaterial';
         return <Comp color="royalblue" />;

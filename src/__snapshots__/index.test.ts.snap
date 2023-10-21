@@ -28,8 +28,7 @@ function Box(props) {
 `;
 
 exports[`handles dynamic expressions 1`] = `
-"import { animated } from \\"@react-spring/three\\";
-import { MeshBasicMaterial as _MeshBasicMaterial, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+"import { MeshBasicMaterial as _MeshBasicMaterial, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
 import { extend as _extend } from \\"@react-three/fiber\\";
 _extend({
   MeshBasicMaterial: _MeshBasicMaterial,
