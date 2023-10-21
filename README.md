@@ -5,7 +5,7 @@
 A Babel plugin for [tree-shaking three.js via JSX](https://docs.pmnd.rs/react-three-fiber/api/canvas#tree-shaking).
 
 ```bash
-npm install @react-three/babel
+npm install --save-dev @react-three/babel
 ```
 
 ```js
