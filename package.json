@@ -48,6 +48,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prepublishOnly": "yarn run build && yarn run test"
   }
 }
