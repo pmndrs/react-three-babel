@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es2016",
+    "outDir": "dist",
+    "target": "esnext",
+    "module": "esnext",
+    "lib": ["esnext", "dom"],
     "moduleResolution": "node",
-    "types": ["node", "jest"],
-    "declaration": true,
-  },
-  "include": ["src", "@types"],
+    "strict": true,
+    "pretty": true,
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  }
 }

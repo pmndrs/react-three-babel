@@ -1,0 +1,67 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`handles JSX 1`] = `
+"import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshBasicMaterial as _MeshBasicMaterial } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+_extend({
+  Mesh: _Mesh,
+  BoxGeometry: _BoxGeometry,
+  MeshBasicMaterial: _MeshBasicMaterial
+});
+function Box(props) {
+  return <mesh {...props}> <boxGeometry /> <meshBasicMaterial /> </mesh>;
+}"
+`;
+
+exports[`handles JSX member expressions 1`] = `
+"import { animated } from \\"@react-spring/three\\";
+import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshBasicMaterial as _MeshBasicMaterial } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+_extend({
+  Mesh: _Mesh,
+  BoxGeometry: _BoxGeometry,
+  MeshBasicMaterial: _MeshBasicMaterial
+});
+function Box(props) {
+  return <animated.mesh {...props}> <boxGeometry /> <meshBasicMaterial /> </animated.mesh>;
+}"
+`;
+
+exports[`handles dynamic expressions 1`] = `
+"import { MeshBasicMaterial as _MeshBasicMaterial, MeshStandardMaterial as _MeshStandardMaterial } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+_extend({
+  MeshBasicMaterial: _MeshBasicMaterial,
+  MeshStandardMaterial: _MeshStandardMaterial
+});
+function Material(props) {
+  const Comp = props.foo ? 'meshBasicMaterial' : 'meshStandardMaterial';
+  return <Comp color=\\"royalblue\\" />;
+}"
+`;
+
+exports[`handles template strings 1`] = `
+"import { MeshBasicMaterial as _MeshBasicMaterial, MeshDepthMaterial as _MeshDepthMaterial, MeshDistanceMaterial as _MeshDistanceMaterial, MeshLambertMaterial as _MeshLambertMaterial, MeshMatcapMaterial as _MeshMatcapMaterial, MeshNormalMaterial as _MeshNormalMaterial, MeshPhongMaterial as _MeshPhongMaterial, MeshPhysicalMaterial as _MeshPhysicalMaterial, MeshStandardMaterial as _MeshStandardMaterial, MeshToonMaterial as _MeshToonMaterial } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+_extend({
+  MeshBasicMaterial: _MeshBasicMaterial,
+  MeshDepthMaterial: _MeshDepthMaterial,
+  MeshDistanceMaterial: _MeshDistanceMaterial,
+  MeshLambertMaterial: _MeshLambertMaterial,
+  MeshMatcapMaterial: _MeshMatcapMaterial,
+  MeshNormalMaterial: _MeshNormalMaterial,
+  MeshPhongMaterial: _MeshPhongMaterial,
+  MeshPhysicalMaterial: _MeshPhysicalMaterial,
+  MeshStandardMaterial: _MeshStandardMaterial,
+  MeshToonMaterial: _MeshToonMaterial
+});
+function Material(props) {
+  const Comp = \`mesh\${props.type}Material\`;
+  return <Comp color=\\"royalblue\\" />;
+}"
+`;
+
+exports[`removes namespaced extend calls 1`] = `
+"import * as THREE from \\"three\\";
+import { extend } from \\"@react-three/fiber\\";"
+`;
