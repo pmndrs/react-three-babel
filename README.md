@@ -11,6 +11,6 @@ npm install --save-dev @react-three/babel
 ```js
 // .babelrc or babel.config.js
 {
-  plugins: ['@react-three/babel']
+  plugins: ['module:@react-three/babel']
 }
 ```
