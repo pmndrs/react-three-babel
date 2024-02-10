@@ -1,4 +1,5 @@
-import { type NodePath, type PluginObj, types as t } from '@babel/core'
+import { type NodePath, types as t } from '@babel/core'
+import { declare } from "@babel/helper-plugin-utils";
 import * as THREE from 'three'
 
 const imports = new Map<string, t.ImportSpecifier>()
@@ -45,7 +46,8 @@ let lastImport: NodePath | null = null
  * })
  * ```
  */
-export default function reactThreeBabelPlugin(): PluginObj {
+export default declare((api) => {
+  api.assertVersion(7)
   return {
     manipulateOptions(_, options) {
       options.plugins.push('jsx')
@@ -148,4 +150,4 @@ export default function reactThreeBabelPlugin(): PluginObj {
       },
     },
   }
-}
+})
