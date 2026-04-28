@@ -8,7 +8,7 @@ exports[`do not handle path tag inside svg 1`] = `
 
 exports[`do not handle path tag with d attribute outside svg 1`] = `
 "function Icon(props) {
-  return <path d="M10 10"></path>;
+  return <path d=\\"M10 10\\"></path>;
 }"
 `;
 
