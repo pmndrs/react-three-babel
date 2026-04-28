@@ -79,6 +79,31 @@ export default declare((api) => {
 
         // Parse identifiers (e.g. <mesh />, <animated.mesh />)
         let type = 'property' in name ? name.property.name : name.name
+
+        // Skip SVG path with 'd' attribute (SVG path data)
+        if (type === 'path') {
+          const hasDAttribute = path.node.attributes.some(
+            (attr) =>
+              t.isJSXAttribute(attr) &&
+              t.isJSXIdentifier(attr.name) &&
+              attr.name.name === 'd'
+          )
+          if (hasDAttribute) return
+
+          // fallback
+          let parent: NodePath | null = path.parentPath
+          while (parent) {
+            if (
+              t.isJSXElement(parent.node) &&
+              t.isJSXIdentifier(parent.node.openingElement.name) &&
+              parent.node.openingElement.name.name === 'svg'
+            ) {
+              return
+            }
+            parent = parent.parentPath
+          }
+        }
+
         const declaration = path.scope.getBinding(type)?.path.node
         if (t.isVariableDeclarator(declaration)) {
           if (t.isStringLiteral(declaration.init)) {

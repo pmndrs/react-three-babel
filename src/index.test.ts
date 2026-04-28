@@ -75,3 +75,25 @@ it('handles template strings', () => {
   )
   expect(code).toMatchSnapshot()
 })
+
+it('do not handle path tag inside svg',()=>{
+  const code  = transform(
+    `
+    function Icon(props) {
+      return <svg><path></path></svg>;
+    }
+    `
+  )
+  expect(code).toMatchSnapshot()
+})
+
+it('do not handle path tag with d attribute outside svg',()=>{
+  const code  = transform(
+    `
+    function Icon(props) {
+      return <path d="M10 10"></path>;
+    }
+    `
+  )
+  expect(code).toMatchSnapshot()
+})
