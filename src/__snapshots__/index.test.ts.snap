@@ -12,6 +12,17 @@ exports[`do not handle path tag with d attribute outside svg 1`] = `
 }"
 `;
 
+exports[`handle path tag w/o d attribute 1`] = `
+"import { Path as _Path } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+_extend({
+  Path: _Path
+});
+function Comp(props) {
+  return <path></path>;
+}"
+`;
+
 exports[`handles JSX 1`] = `
 "import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshBasicMaterial as _MeshBasicMaterial } from \\"three\\";
 import { extend as _extend } from \\"@react-three/fiber\\";

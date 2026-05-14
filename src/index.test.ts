@@ -97,3 +97,14 @@ it('do not handle path tag with d attribute outside svg',()=>{
   )
   expect(code).toMatchSnapshot()
 })
+
+it('handle path tag w/o d attribute',()=>{
+  const code  = transform(
+    `
+    function Comp(props) {
+      return <path></path>;
+    }
+    `
+  )
+  expect(code).toMatchSnapshot()
+})
