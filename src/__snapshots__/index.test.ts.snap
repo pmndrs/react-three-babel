@@ -1,5 +1,28 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`do not handle path tag inside svg 1`] = `
+"function Icon(props) {
+  return <svg><path></path></svg>;
+}"
+`;
+
+exports[`do not handle path tag with d attribute outside svg 1`] = `
+"function Icon(props) {
+  return <path d=\\"M10 10\\"></path>;
+}"
+`;
+
+exports[`handle path tag w/o d attribute 1`] = `
+"import { Path as _Path } from \\"three\\";
+import { extend as _extend } from \\"@react-three/fiber\\";
+_extend({
+  Path: _Path
+});
+function Comp(props) {
+  return <path></path>;
+}"
+`;
+
 exports[`handles JSX 1`] = `
 "import { Mesh as _Mesh, BoxGeometry as _BoxGeometry, MeshBasicMaterial as _MeshBasicMaterial } from \\"three\\";
 import { extend as _extend } from \\"@react-three/fiber\\";
