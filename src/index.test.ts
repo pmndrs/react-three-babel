@@ -1,4 +1,4 @@
-import * as babel7 from '@babel/core'
+import * as babel7 from 'babel-core-7'
 import * as babel8 from 'babel-core-8'
 import { it, expect, describe } from 'vitest'
 import plugin from '../src/index'

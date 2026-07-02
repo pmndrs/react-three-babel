@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
+    "babel-core-7": "npm:@babel/core@^7.21.8",
     "@react-three/fiber": "^8.13.0",
     "@types/babel__core": "^7.20.0",
     "@types/babel__helper-plugin-utils": "^7.10.3",
