@@ -47,7 +47,7 @@ let lastImport: NodePath | null = null
  * ```
  */
 export default declare((api) => {
-  api.assertVersion(7)
+  api.assertVersion("^7.0.0-0 || ^8.0.0-0")
   return {
     manipulateOptions(_, options) {
       options.plugins.push('jsx')
