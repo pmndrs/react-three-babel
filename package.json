@@ -35,15 +35,17 @@
     "three": "*"
   },
   "dependencies": {
-    "@babel/helper-plugin-utils": "^7.22.5"
+    "@babel/helper-plugin-utils": "^7.22.5 || ^8.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.8",
+    "babel-core-7": "npm:@babel/core@^7.21.8",
     "@react-three/fiber": "^8.13.0",
     "@types/babel__core": "^7.20.0",
     "@types/babel__helper-plugin-utils": "^7.10.3",
     "@types/node": "^20.1.7",
     "@types/three": "^0.152.0",
+    "babel-core-8": "npm:@babel/core@^8.0.0",
     "three": "^0.152.2",
     "typescript": "^5.0.4",
     "vite": "^4.3.7",
